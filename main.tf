@@ -14,6 +14,15 @@ provider "aws" {
   secret_key = var.AWS_SECRET_ACCESS_KEY
 }
 
+module "cognito" {
+  source     = "./modules/cognito"
+  department = var.department
+  project    = var.project
+  env        = var.env
+  tags       = local.tags
+  key_names  = var.key_names
+}
+  
 module "lambda" {
   source  = "./modules/lambda"
   project = var.project
