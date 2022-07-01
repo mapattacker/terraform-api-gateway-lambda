@@ -1,3 +1,4 @@
+# API gateway timeout is 30s by default, non-configurable
 
 
 resource "aws_api_gateway_rest_api" "main" {
@@ -19,10 +20,11 @@ resource "aws_api_gateway_resource" "main" {
 
 resource "aws_api_gateway_method" "main" {
   # define the method(s), e.g. GET / POST / etc.
-  resource_id   = aws_api_gateway_resource.main.id
-  rest_api_id   = aws_api_gateway_rest_api.main.id
-  authorization = "NONE"
-  http_method   = "ANY"
+  resource_id      = aws_api_gateway_resource.main.id
+  rest_api_id      = aws_api_gateway_rest_api.main.id
+  authorization    = "NONE"
+  api_key_required = true
+  http_method      = "ANY"
 }
 
 
@@ -69,7 +71,7 @@ resource "aws_lambda_permission" "apigw_lambda" {
 }
 
 
-# API key ------
+# API keys & Usage Plans ------
 
 resource "aws_api_gateway_usage_plan" "main" {
   name = var.project
@@ -83,7 +85,6 @@ resource "aws_api_gateway_usage_plan" "main" {
     limit  = 50000
     period = "WEEK"
   }
-
   throttle_settings {
     burst_limit = 5
     rate_limit  = 50
@@ -93,11 +94,13 @@ resource "aws_api_gateway_usage_plan" "main" {
 }
 
 resource "aws_api_gateway_api_key" "main" {
+  # create multiple api-keys
   count = length(var.key_names)
   name  = "api-key-${var.project}-${var.key_names[count.index]}"
 }
 
 resource "aws_api_gateway_usage_plan_key" "main" {
+  # attach each key to the project usage plan
   count         = length(var.key_names)
   key_id        = aws_api_gateway_api_key.main.*.id[count.index]
   key_type      = "API_KEY"
