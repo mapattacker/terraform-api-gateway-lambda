@@ -16,15 +16,26 @@ resource "aws_api_gateway_resource" "main" {
 }
 
 
-# method ------
+# method, authentication & authorization ------
 
 resource "aws_api_gateway_method" "main" {
   # define the method(s), e.g. GET / POST / etc.
-  resource_id      = aws_api_gateway_resource.main.id
-  rest_api_id      = aws_api_gateway_rest_api.main.id
-  authorization    = "NONE"
+  # add api key & cognito requirements
+  resource_id = aws_api_gateway_resource.main.id
+  rest_api_id = aws_api_gateway_rest_api.main.id
+  # authorization    = "NONE"
+  authorization    = "COGNITO_USER_POOLS"
+  authorizer_id    = aws_api_gateway_authorizer.main.id
   api_key_required = true
   http_method      = "ANY"
+}
+
+resource "aws_api_gateway_authorizer" "main" {
+  # link to cognito user pool
+  name          = "cognito-authorizer-${var.project}"
+  rest_api_id   = aws_api_gateway_rest_api.main.id
+  type          = "COGNITO_USER_POOLS"
+  provider_arns = [var.cognito_user_pool_arn]
 }
 
 
@@ -96,7 +107,7 @@ resource "aws_api_gateway_usage_plan" "main" {
 resource "aws_api_gateway_api_key" "main" {
   # create multiple api-keys
   count = length(var.key_names)
-  name  = "api-key-${var.project}-${var.key_names[count.index]}"
+  name  = "api-key-${var.project}-${var.env}-${var.key_names[count.index]}"
 }
 
 resource "aws_api_gateway_usage_plan_key" "main" {
@@ -106,3 +117,4 @@ resource "aws_api_gateway_usage_plan_key" "main" {
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.main.id
 }
+
