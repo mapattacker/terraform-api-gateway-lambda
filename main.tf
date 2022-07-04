@@ -49,6 +49,9 @@ module "api-gateway" {
 
 # output ------
 
+output "api-gateway-url" {
+  value = module.api-gateway.api_stage_url
+}
 output "cognito-user-pool-arn" {
   value = module.cognito.user_pool_arn
 }
