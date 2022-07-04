@@ -118,3 +118,9 @@ resource "aws_api_gateway_usage_plan_key" "main" {
   usage_plan_id = aws_api_gateway_usage_plan.main.id
 }
 
+
+# output ------
+
+output "api_stage_url" {
+  value = aws_api_gateway_stage.main.invoke_url
+}
