@@ -18,7 +18,7 @@ aws cognito-idp initiate-auth \
 ```bash
 {
     "ChallengeName": "NEW_PASSWORD_REQUIRED",
-    "Session": "AYABeNul3AaFMd-iZbkcCbfEwtwAHQABAAdTZXJ2aWNlABBDb2duaXRvVXNlclBvb2xzAAEAB2F3cy1rbXMAUGFybjphd3M6a21zOmFwLXNvdXRoZWFzdC0xOjAzMTU3NzI0MDA0ODprZXkvYmEwNzA1YzktMTI0Mi00ODg1LWJhMmYtNDhiMWNjYTNiNDNmALgBAgEAeMtRirmB1qptVeI5EWSyPpLL6RXz-VVK9JVsLMBfSNNmAX_uSIUlhBEH2fm0CQyawWkAAAB",
+    "Session": "AYABeNul3AaFMd-iZbkcCbfEwtwAHQABAAdTZXJ2aWNlABBDb2duaXRvxxx",
     "ChallengeParameters": {
         "USER_ID_FOR_SRP": "${USERNAME}",
         "requiredAttributes": "[]",
