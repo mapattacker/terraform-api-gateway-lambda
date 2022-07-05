@@ -1,4 +1,4 @@
-# terraform-api-gateway-lambda
+# Terraform Api-Gateway-Lambda
 
 ### Changing Cognito User Password
 
