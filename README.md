@@ -1,10 +1,10 @@
 # Terraform Api-Gateway-Lambda
 
-### API Key
+### 1. API Key
 
 Go to AWS console > API Gateway > Select your API > API Key (left panel).
 
-### Changing Cognito User Password
+### 2. Changing Cognito User Password
 
  - While we can do it, it is not recommended to create the cognito users with the password as they will be embedded 
  - When the stack is deployed, a temporary password will be send to the email assigned to each cognito user you created.
@@ -53,7 +53,7 @@ aws cognito-idp initiate-auth \
  --output text
 ```
 
-### Sending Request
+### 3. Sending Request
 
 Under request headers
 
