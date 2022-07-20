@@ -2,68 +2,6 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "ApiGateway",
-            "Effect": "Allow",
-            "Action": [
-                "apigateway:DELETE",
-                "apigateway:UpdateRestApiPolicy",
-                "apigateway:PUT",
-                "apigateway:PATCH",
-                "apigateway:POST",
-                "apigateway:GET"
-            ],
-            "Resource": [
-                "arn:aws:apigateway:ap-southeast-1::/*",
-                "arn:aws:apigateway:ap-southeast-1::/apis/*/usageplans/*",
-                "arn:aws:execute-api:ap-southeast-1:<accountid>:*"
-            ]
-        },
-        {
-            "Sid": "CognitoReadOnlyPolicy",
-            "Effect": "Allow",
-            "Action": [
-                "cognito-identity:Describe*",
-                "cognito-identity:Get*",
-                "cognito-identity:List*",
-                "cognito-idp:Describe*",
-                "cognito-idp:AdminGet*",
-                "cognito-idp:AdminList*",
-                "cognito-idp:List*",
-                "cognito-idp:Get*",
-                "cognito-sync:Describe*",
-                "cognito-sync:Get*",
-                "cognito-sync:List*",
-                "iam:ListOpenIdConnectProviders",
-                "iam:ListRoles",
-                "sns:ListPlatformApplications"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "CognitoCreate",
-            "Effect": "Allow",
-            "Action": [
-                "cognito-idp:Create*",
-                "cognito-idp:AdminCreate*",
-                "cognito-idp:TagResource"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "CognitoDelete",
-            "Effect": "Allow",
-            "Action": [
-                "cognito-idp:Delete*",
-                "cognito-idp:AdminDelete*"
-            ],
-            "Resource": "arn:aws:cognito-idp:*:753251591776:userpool/*",
-            "Condition": {
-                "StringEquals": {
-                    "aws:ResourceTag/project": "<projectname>"
-                }
-            }
-        },
-        {
             "Sid": "AttachLambdaRole",
             "Effect": "Allow",
             "Action": [
